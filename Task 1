@@ -1,0 +1,138 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+	int value;
+	Node* next;
+	Node* back;
+
+	Node(){
+		value = 0;
+	next = nullptr;
+	back = nullptr;
+
+	}
+
+	Node(int value) {
+		this->value = value;
+		next = nullptr;
+		back = nullptr;
+	}
+
+};
+
+void putNodeToTail(Node*& head, int value) {
+	Node* n = new Node(value);
+
+	if (head == nullptr) {
+		head = n;
+		return;
+	}
+
+	Node* temp = head;
+	
+	while (temp->next != nullptr) {
+		temp = temp->next;
+	}
+	temp->next = n;
+	n->back = temp;
+
+}
+
+void display(Node*& head) {
+	Node* temp = head;
+
+	while (temp != nullptr) {
+		cout << temp->value << " " << " ";
+		temp = temp->next;
+	}
+	cout << endl << endl;
+
+}
+
+bool sortElement(Node* head) {
+	Node* temp = head;
+
+	while (temp->next != nullptr) {
+		if (temp->value > temp->next->value) {
+			return false;
+		}
+		temp = temp->next;
+	}
+	return true;
+}
+
+bool theSame(Node* head) {
+	Node* temp = head;
+	Node* temp1 = head;
+
+	while (temp->next != nullptr) {
+		temp1 = temp->next;
+
+		while (temp1 != nullptr) {
+
+			if (temp->value == temp1->value) {
+				return true;
+			}
+			temp1 = temp1->next;
+		}
+		temp = temp->next;
+	}
+	return false;
+
+}
+int main()
+{
+	Node* head1 = nullptr;
+	Node* head2 = nullptr;
+
+
+	putNodeToTail(head1, 3);
+	putNodeToTail(head1, 1);
+	putNodeToTail(head1, 3);
+
+	putNodeToTail(head2, 2);
+	putNodeToTail(head2, 3);
+	putNodeToTail(head2, 8);
+
+
+	display(head1);
+	display(head2);
+
+	sortElement(head1);
+	sortElement(head2);
+
+	if (sortElement(head1) == true) {
+		cout << "first list sorted" << endl;
+	}
+	else if (sortElement(head1) == false) {
+		cout << "first list is not sorted" << endl;
+	}
+
+	if (sortElement(head2) == true) {
+		cout << "second list sorted" << endl;
+	}
+	else if (sortElement(head2) == false) {
+		cout << "second list is not sorted" << endl;
+	}
+
+	theSame(head1);
+	theSame(head2);
+
+	if (theSame(head1) == true) {
+		cout << "in first list has the same elements" << endl;
+	}
+	else if (theSame(head1) == false) {
+		cout << "in first list does not have the same elements" << endl;
+	}
+
+	if (theSame(head2) == true) {
+		cout << "in second list has the same elements" << endl;
+	}
+	else if (theSame(head2) == false) {
+		cout << "in second list does not have the same elements" << endl;
+	}
+
+
+}
